@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KadınKuaför | Blesyum Esintili Salon Keşif Platformu</title>
+    <meta name="description" content="KadınKuaför ile bulunduğunuz ilçede açık olan en iyi kadın kuaförlerini saniyeler içinde bulun. Şehir, ilçe ve hizmet filtreleriyle 81 ilde keşfet.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container site-header__inner">
+            <a href="/" class="logo" aria-label="KadınKuaför ana sayfa">KadınKuaför</a>
+            <nav class="primary-nav" id="primaryNav" aria-label="Ana menü">
+                <a href="#hero">Anasayfa</a>
+                <a href="#cities">Şehirler</a>
+                <a href="#packages">Paketler</a>
+                <a href="#contact">İletişim</a>
+            </nav>
+            <div class="site-header__cta">
+                <a class="btn btn--outline" href="#contact">Salon Ekle</a>
+                <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="primaryNav">
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="hero">
+            <div class="container hero__layout">
+                <div class="hero__content">
+                    <span class="chip">Blesyum tarzı keşif deneyimi</span>
+                    <h1>Hangi kuaföre gideceğini saniyede bul.</h1>
+                    <p>81 il, 900+ ilçe ve binlerce kadın kuaför arasından sana en yakın, şu an açık ve ihtiyacına uygun salonları keşfet. KadınKuaför, Blesyum’un modern blok yapısını kadın kuaförü arayışına uyarlıyor.</p>
+                    <div class="hero__actions">
+                        <a class="btn btn--primary" href="#search-card">Hemen Başla</a>
+                        <a class="btn btn--ghost" href="#how-it-works">Nasıl Çalışır?</a>
+                    </div>
+                    <div class="hero__meta">
+                        <div class="hero__stats">
+                            <div class="hero__stat">
+                                <strong>81</strong>
+                                <span>İlde erişim</span>
+                            </div>
+                            <div class="hero__stat">
+                                <strong>12.500+</strong>
+                                <span>Salon profili</span>
+                            </div>
+                            <div class="hero__stat">
+                                <strong>250K</strong>
+                                <span>Aylık arama</span>
+                            </div>
+                        </div>
+                        <p>Veriler KadınKuaför canlı kataloğundan anlık olarak güncellenir.</p>
+                    </div>
+                </div>
+                <div class="hero__visual">
+                    <article class="hero__panel">
+                        <h3>Hemen keşfe başla</h3>
+                        <ul>
+                            <li>
+                                <strong>Şehir bazlı keşif</strong>
+                                <small>81 il + alfabetik arama</small>
+                            </li>
+                            <li>
+                                <strong>Anlık durum</strong>
+                                <small>"Şu anda açık" filtresiyle gerçek zamanlı</small>
+                            </li>
+                            <li>
+                                <strong>WhatsApp tek tık</strong>
+                                <small>Doğrudan salonla iletişim kur</small>
+                            </li>
+                        </ul>
+                    </article>
+                    <article class="hero__panel hero__cta-card">
+                        <h3>Salonunu vitrine çıkar</h3>
+                        <p>Öne çıkan kartlar ile KadınKuaför’de daha fazla rezervasyon yakala.</p>
+                        <div class="card__actions">
+                            <a class="btn btn--primary" href="#packages">Paketleri Gör</a>
+                            <a class="btn btn--outline" href="#contact">Demo Talep Et</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section search-flow" id="search-card">
+            <div class="container">
+                <div class="card search-flow__card">
+                    <div class="section__header">
+                        <span class="chip">İl / İlçe seç</span>
+                        <h2>Mobil-öncelikli keşif kartı</h2>
+                        <p>İki adımda il ve ilçe seçerek `/[il-slug]/[ilce-slug]` desenindeki liste sayfasına yönlen. Dilersen “Şu anda açık” ve “Pazar açık” rozetlerini aktif ederek sadece çalışan salonları gör.</p>
+                    </div>
+                    <form class="search-flow__form" id="searchForm">
+                        <div class="select-field">
+                            <label for="cityInput">İl seçin</label>
+                            <div class="select-field__control">
+                                <input type="search" id="cityInput" name="city" placeholder="İl arayın..." list="cityOptions" autocomplete="off" aria-describedby="cityHint">
+                                <button type="button" class="select-field__clear" data-target="cityInput" aria-label="Şehir seçimini temizle">✕</button>
+                                <span class="select-field__icon" aria-hidden="true">⌄</span>
+                                <datalist id="cityOptions"></datalist>
+                            </div>
+                            <small id="cityHint">Alfabetik arama ve klavye navigasyonu desteklenir.</small>
+                        </div>
+                        <div class="select-field">
+                            <label for="districtInput">İlçe seçin</label>
+                            <div class="select-field__control">
+                                <input type="search" id="districtInput" name="district" placeholder="İlçe seçmek için il belirleyin" list="districtOptions" autocomplete="off" disabled aria-describedby="districtHint">
+                                <button type="button" class="select-field__clear" data-target="districtInput" aria-label="İlçe seçimini temizle">✕</button>
+                                <span class="select-field__icon" aria-hidden="true">⌄</span>
+                                <datalist id="districtOptions"></datalist>
+                            </div>
+                            <small id="districtHint">İl seçildiğinde ilgili ilçeler otomatik dolar.</small>
+                        </div>
+                        <button class="btn btn--primary" type="submit">Git</button>
+                    </form>
+                    <div class="switches" role="group" aria-label="Durum filtreleri">
+                        <label class="switch" data-switch="open-now">
+                            <input type="checkbox" name="openNow">
+                            <span>Şu anda açık</span>
+                        </label>
+                        <label class="switch" data-switch="sunday">
+                            <input type="checkbox" name="sunday">
+                            <span>Pazar açık</span>
+                        </label>
+                    </div>
+                    <p class="hero__meta">API örneği: <code>GET /api/list?city={il}&district={ilce}&openNow&service</code></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section features" id="how-it-works">
+            <div class="container">
+                <div class="section__header">
+                    <span class="chip">Faydalar</span>
+                    <h2>KadınKuaför’ün sunduğu hızlı keşif araçları</h2>
+                    <p>Minimal ikonografi ve yumuşak gölgeli kartlarla Blesyum esintili fayda blokları.</p>
+                </div>
+                <div class="features__grid">
+                    <article class="card feature-card">
+                        <span class="feature-card__icon">⏱️</span>
+                        <div>
+                            <h3>Şu Anda Açık filtresi</h3>
+                            <p>Canlı çalışma saatleri ile kapalı salonları anında eleyin ve vakit kaybetmeyin.</p>
+                        </div>
+                        <a href="#">Filtre mantığını incele</a>
+                    </article>
+                    <article class="card feature-card">
+                        <span class="feature-card__icon">💬</span>
+                        <div>
+                            <h3>WhatsApp tek tık</h3>
+                            <p>Salon profillerinde anında mesajlaşma butonu; müşteriler sorularına hızlıca cevap alır.</p>
+                        </div>
+                        <a href="#">Örnek mesaj akışı</a>
+                    </article>
+                    <article class="card feature-card">
+                        <span class="feature-card__icon">💳</span>
+                        <div>
+                            <h3>Fiyat aralığı etiketi</h3>
+                            <p>Hizmet bazlı fiyat bantlarını kartın üstünde rozet olarak göstererek beklentiyi belirle.</p>
+                        </div>
+                        <a href="#">Fiyat format rehberi</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section cities" id="cities">
+            <div class="container">
+                <div class="section__header">
+                    <span class="chip">Şehir Kartları</span>
+                    <h2>81 il için geniş boşluklu kart grid</h2>
+                    <p>Her şehir kartında toplam salon sayısı, ilk 10 salon listesi ve hızlı filtre butonları yer alır. Hover’da pembe vurgu devreye girer.</p>
+                </div>
+                <div class="cities__grid" id="cityCards"></div>
+            </div>
+        </section>
+
+        <section class="section" id="packages">
+            <div class="container CTA-block">
+                <h2>Salonunu öne çıkar, doğru müşteriyi çek.</h2>
+                <p>Pro ve Premium paketlerle şehrinizin ilk sırasında yer alın, sabit banner alanlarıyla dönüşüm oranınızı %38’e kadar artırın.</p>
+                <div class="hero__actions">
+                    <a class="btn btn--primary" href="#contact">Salonunu listele</a>
+                    <a class="btn btn--outline" href="bilecik/bozuyuk.html">Örnek liste sayfası</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section ui-kit" id="ui-kit">
+            <div class="container">
+                <div class="section__header">
+                    <span class="chip">UI Kit</span>
+                    <h2>Buton, chip, kart, select ve sticky bar bileşenleri</h2>
+                    <p>Mobil 390×844 ve masaüstü 1440 gridlerine göre ölçeklenen Blesyum blok yapısı.</p>
+                </div>
+                <div class="ui-kit__grid">
+                    <div class="ui-kit__item">
+                        <h4>Buton Stilleri</h4>
+                        <div class="hero__actions">
+                            <button class="btn btn--primary" type="button">Primary CTA</button>
+                            <button class="btn btn--outline" type="button">Outline</button>
+                            <button class="btn btn--ghost" type="button">Ghost</button>
+                        </div>
+                    </div>
+                    <div class="ui-kit__item">
+                        <h4>Chip & Badge</h4>
+                        <div class="hero__actions">
+                            <span class="chip">Şu anda açık</span>
+                            <span class="badge badge--primary">Fiyat aralığı</span>
+                            <span class="badge badge--success"><span class="status-dot"></span>Açık</span>
+                        </div>
+                    </div>
+                    <div class="ui-kit__item">
+                        <h4>Select & Toggle</h4>
+                        <div class="stack">
+                            <div class="select-field">
+                                <div class="select-field__control">
+                                    <input type="text" placeholder="İl arayın" disabled>
+                                    <span class="select-field__icon" aria-hidden="true">⌄</span>
+                                </div>
+                            </div>
+                            <span class="toggle"></span>
+                        </div>
+                    </div>
+                    <div class="ui-kit__item">
+                        <h4>Sticky Bar</h4>
+                        <div class="sticky-bar" style="position: relative;">
+                            <button class="btn btn--primary btn--icon" type="button">WhatsApp</button>
+                            <button class="btn btn--outline btn--icon" type="button">Ara</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer" id="contact">
+        <div class="container footer__inner">
+            <h2>KadınKuaför ile salonunuza yeni müşteriler kazandırın.</h2>
+            <p>Destek maili: <a href="mailto:destek@kadinkuafor.com">destek@kadinkuafor.com</a></p>
+            <div class="footer__nav">
+                <a href="#hero">Anasayfa</a>
+                <a href="#cities">Şehirler</a>
+                <a href="#packages">Paketler</a>
+                <a href="#ui-kit">UI Kit</a>
+            </div>
+            <small>© <span id="year"></span> KadınKuaför. Tüm hakları saklıdır.</small>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js" defer></script>
+</body>
+</html>
