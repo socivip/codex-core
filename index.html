@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>obir.menu – QR Menü Platformu</title>
+    <meta
+      name="description"
+      content="obir.menu ile restoranınız için saniyeler içinde QR menüler oluşturun, yönetin ve paylaşın."
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: [
+                'Inter',
+                'system-ui',
+                '-apple-system',
+                'BlinkMacSystemFont',
+                'Segoe UI',
+                'sans-serif',
+              ],
+            },
+          },
+        },
+      };
+    </script>
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: light;
+      }
+      body {
+        font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+          sans-serif;
+      }
+      .gradient-border {
+        position: relative;
+        border-radius: 1.5rem;
+        padding: 2px;
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.7), rgba(14, 165, 233, 0.7));
+      }
+      .gradient-border::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 2px;
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(14, 165, 233, 0.25));
+        -webkit-mask:
+          linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+      }
+    </style>
+  </head>
+  <body class="bg-slate-950 text-white antialiased font-sans">
+    <header class="relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-br from-sky-500/20 via-slate-950 to-slate-900"></div>
+      <div class="absolute inset-0 opacity-40" aria-hidden="true">
+        <svg class="h-full w-full" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="grid" cx="50%" cy="50%" r="75%">
+              <stop offset="0%" stop-color="rgba(59,130,246,0.3)" />
+              <stop offset="100%" stop-color="rgba(15,23,42,0)" />
+            </radialGradient>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
+      </div>
+      <div class="relative mx-auto max-w-6xl px-4 pb-24 pt-8 sm:px-6 lg:px-8">
+        <nav class="flex items-center justify-between gap-6">
+          <div class="flex items-center gap-3 text-lg font-semibold tracking-tight">
+            <span
+              class="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-400 to-cyan-500 text-xl text-slate-900"
+              >ob</span
+            >
+            <span class="hidden text-2xl font-bold sm:inline">obir.menu</span>
+          </div>
+          <button
+            id="mobile-menu-button"
+            class="inline-flex items-center rounded-xl border border-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10 lg:hidden"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+          >
+            Menü
+          </button>
+          <div class="hidden items-center gap-2 lg:flex">
+            <a
+              href="#ozellikler"
+              class="rounded-xl px-4 py-2 text-sm font-medium text-white/80 transition hover:text-white"
+              >Özellikler</a
+            >
+            <a
+              href="#fiyatlar"
+              class="rounded-xl px-4 py-2 text-sm font-medium text-white/80 transition hover:text-white"
+              >Fiyatlar</a
+            >
+            <a
+              href="#sss"
+              class="rounded-xl px-4 py-2 text-sm font-medium text-white/80 transition hover:text-white"
+              >SSS</a
+            >
+            <a
+              href="#iletisim"
+              class="rounded-xl px-4 py-2 text-sm font-medium text-white/80 transition hover:text-white"
+              >İletişim</a
+            >
+            <a
+              href="#demo"
+              class="rounded-xl bg-white px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-slate-100"
+              >Demo Talep Et</a
+            >
+          </div>
+        </nav>
+        <div
+          id="mobile-menu"
+          class="mt-6 hidden flex-col gap-2 rounded-2xl border border-white/10 bg-white/5 p-6 text-sm font-medium text-white/80 backdrop-blur"
+        >
+          <a href="#ozellikler" class="rounded-lg px-4 py-2 hover:bg-white/10">Özellikler</a>
+          <a href="#fiyatlar" class="rounded-lg px-4 py-2 hover:bg-white/10">Fiyatlar</a>
+          <a href="#sss" class="rounded-lg px-4 py-2 hover:bg-white/10">SSS</a>
+          <a href="#iletisim" class="rounded-lg px-4 py-2 hover:bg-white/10">İletişim</a>
+          <a
+            href="#demo"
+            class="rounded-lg bg-white px-4 py-2 text-slate-900 hover:bg-slate-100"
+            >Demo Talep Et</a
+          >
+        </div>
+        <div class="mt-16 grid items-center gap-12 lg:grid-cols-2">
+          <div class="space-y-8">
+            <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold text-white/80">
+              <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
+              5 dakikada QR menünüz hazır
+            </span>
+            <h1 class="text-4xl font-bold leading-tight sm:text-5xl sm:leading-tight">
+              Restoranınızın dijital vitrini: <span class="text-transparent bg-gradient-to-r from-sky-400 to-cyan-300 bg-clip-text">obir.menu</span>
+            </h1>
+            <p class="max-w-xl text-lg text-white/70">
+              obir.menu ile menünüzü kolayca oluşturun, QR kodları baskıya gerek kalmadan paylaşın ve
+              anında güncelleyin. Çok dilli destek, analitikler ve stok yönetimi tek platformda.
+            </p>
+            <div class="flex flex-col gap-3 sm:flex-row">
+              <a
+                href="#demo"
+                class="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-base font-semibold text-slate-900 shadow-lg shadow-sky-500/30 transition hover:translate-y-0.5 hover:bg-slate-100"
+              >
+                Ücretsiz deneyin
+              </a>
+              <a
+                href="#ozellikler"
+                class="inline-flex items-center justify-center rounded-2xl border border-white/10 px-6 py-3 text-base font-semibold text-white/80 transition hover:border-white/40 hover:text-white"
+              >
+                Platformu keşfedin
+              </a>
+            </div>
+            <dl class="grid grid-cols-2 gap-6 text-sm text-white/60 sm:grid-cols-3">
+              <div>
+                <dt class="font-semibold text-white">850+ işletme</dt>
+                <dd>obir.menu ile dijitalde</dd>
+              </div>
+              <div>
+                <dt class="font-semibold text-white">%99.9 uptime</dt>
+                <dd>Güvenilir altyapı</dd>
+              </div>
+              <div>
+                <dt class="font-semibold text-white">24/7 destek</dt>
+                <dd>Türkçe canlı destek</dd>
+              </div>
+            </dl>
+          </div>
+          <div class="relative">
+            <div class="gradient-border">
+              <div class="relative rounded-[22px] bg-slate-900/60 p-6 backdrop-blur">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-xs uppercase tracking-[0.3em] text-white/40">Aktif Menü</p>
+                    <p class="mt-1 text-lg font-semibold">Obir Coffee House</p>
+                  </div>
+                  <span class="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-300">
+                    <span class="h-2 w-2 rounded-full bg-emerald-300"></span>
+                    Canlı
+                  </span>
+                </div>
+                <div class="mt-6 rounded-2xl bg-slate-950/70 p-5 shadow-inner">
+                  <div class="grid grid-cols-4 gap-3 text-xs font-medium text-white/60">
+                    <span class="rounded-xl bg-white/5 px-3 py-2 text-center text-white">Kahveler</span>
+                    <span class="rounded-xl bg-white/5 px-3 py-2 text-center">Tatlılar</span>
+                    <span class="rounded-xl bg-white/5 px-3 py-2 text-center">Kahvaltı</span>
+                    <span class="rounded-xl bg-white/5 px-3 py-2 text-center">İçecekler</span>
+                  </div>
+                  <div class="mt-6 space-y-4">
+                    <div class="flex items-center justify-between rounded-2xl bg-white/5 p-4">
+                      <div>
+                        <p class="text-sm font-semibold text-white">Flat White</p>
+                        <p class="text-xs text-white/50">Yulaf sütü seçeneğiyle</p>
+                      </div>
+                      <span class="text-sm font-semibold text-sky-300">₺78</span>
+                    </div>
+                    <div class="flex items-center justify-between rounded-2xl bg-white/5 p-4">
+                      <div>
+                        <p class="text-sm font-semibold text-white">Kruvasan</p>
+                        <p class="text-xs text-white/50">Tereyağlı, fırından yeni</p>
+                      </div>
+                      <span class="text-sm font-semibold text-sky-300">₺62</span>
+                    </div>
+                    <div class="flex items-center justify-between rounded-2xl bg-white/5 p-4">
+                      <div>
+                        <p class="text-sm font-semibold text-white">Matcha Latte</p>
+                        <p class="text-xs text-white/50">Badem sütü ile</p>
+                      </div>
+                      <span class="text-sm font-semibold text-sky-300">₺92</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-6 flex items-center justify-between text-xs text-white/50">
+                  <span>Güncelleme: 2 dakika önce</span>
+                  <a href="#demo" class="text-sky-300 hover:text-sky-200">Menüyü aç</a>
+                </div>
+              </div>
+            </div>
+            <div class="absolute -bottom-16 -left-12 hidden w-48 rounded-3xl border border-white/10 bg-white/10 p-5 text-xs text-white/60 backdrop-blur lg:block">
+              <p class="font-semibold text-white">QR tarat, menüyü aç</p>
+              <p class="mt-2 leading-5">
+                Her masaya özel QR kodları ile sipariş sürecini hızlandırın ve stok durumuna göre
+                anında güncelleyin.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="relative isolate">
+      <section id="ozellikler" class="relative overflow-hidden py-24">
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950"></div>
+        <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div class="mx-auto max-w-2xl text-center">
+            <span class="inline-flex items-center rounded-full bg-sky-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-sky-300">
+              Özellikler
+            </span>
+            <h2 class="mt-6 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+              QR menünüz için eksiksiz çözüm
+            </h2>
+            <p class="mt-4 text-lg text-white/70">
+              Menülerinizi saniyeler içinde güncelleyin, otomatik çeviriyle çok dilde yayınlayın ve
+              müşterilerinizin davranışlarını analiz edin.
+            </p>
+          </div>
+          <div class="mt-16 grid gap-10 lg:grid-cols-3">
+            <article class="rounded-3xl border border-white/5 bg-white/5 p-8 shadow-lg shadow-sky-500/5">
+              <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-500/10 text-sky-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 4.5h6M9 19.5h6M4.5 9v6M19.5 9v6" />
+                </svg>
+              </div>
+              <h3 class="mt-6 text-xl font-semibold text-white">Sürükle-bırak menü oluşturucu</h3>
+              <p class="mt-4 text-sm text-white/70">
+                Kategorileri düzenleyin, ürün ekleyin ve fiyatları saniyeler içinde güncelleyin. Masa
+                planı ve stok takibi tek ekrandan kontrol edilir.
+              </p>
+            </article>
+            <article class="rounded-3xl border border-white/5 bg-white/5 p-8 shadow-lg shadow-sky-500/5">
+              <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+              </div>
+              <h3 class="mt-6 text-xl font-semibold text-white">Çok dillilik ve özel temalar</h3>
+              <p class="mt-4 text-sm text-white/70">
+                Türkçe, İngilizce ve Arapça dahil 12 dilde otomatik çeviri; markanıza uygun tema ve
+                renk seçenekleriyle benzersiz görünüm.
+              </p>
+            </article>
+            <article class="rounded-3xl border border-white/5 bg-white/5 p-8 shadow-lg shadow-sky-500/5">
+              <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-500/10 text-violet-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3v3m0 12v3m15-18h3m-3 18h3M7.5 3v3m0 12v3m9-18v3m0 12v3M3 7.5h3m12 0h3M3 16.5h3m12 0h3" />
+                </svg>
+              </div>
+              <h3 class="mt-6 text-xl font-semibold text-white">Derin analitik ve entegrasyonlar</h3>
+              <p class="mt-4 text-sm text-white/70">
+                Hangi ürünleriniz daha popüler görün, stok uyarıları alın ve POS sistemleriyle
+                entegre ederek sipariş akışını hızlandırın.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="relative py-24">
+        <div class="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"></div>
+        <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div class="grid gap-16 lg:grid-cols-2 lg:items-center">
+            <div class="space-y-6">
+              <h2 class="text-3xl font-semibold text-white sm:text-4xl">
+                Müşterilerinizle temas eden her noktada güçlü deneyim
+              </h2>
+              <p class="text-base text-white/70">
+                QR kodlarınızı masa, paket servis veya sosyal medya için özelleştirin. obir.menu
+                işletmenizin dijital yüzünü güçlendirirken misafirlerinizle bağ kurmanızı sağlar.
+              </p>
+              <ul class="space-y-4 text-sm text-white/70">
+                <li class="flex items-start gap-3">
+                  <span class="mt-1 h-2.5 w-2.5 rounded-full bg-sky-400"></span>
+                  <span>Her menü güncellemesi saniyeler içinde tüm cihazlarda eş zamanlı.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-1 h-2.5 w-2.5 rounded-full bg-emerald-400"></span>
+                  <span>Menüde stokta olmayan ürünleri otomatik gizleyin.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="mt-1 h-2.5 w-2.5 rounded-full bg-violet-400"></span>
+                  <span>Yerleşik kampanya ve çapraz satış önerileri ile satış artırın.</span>
+                </li>
+              </ul>
+              <div class="grid gap-6 sm:grid-cols-2">
+                <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+                  <p class="text-3xl font-bold text-white">%32</p>
+                  <p class="mt-2 text-xs uppercase tracking-[0.3em] text-white/50">Sipariş artışı</p>
+                  <p class="mt-4 text-sm text-white/60">
+                    obir.menu kullanıcılarının ilk 3 ayda gördüğü ortalama sipariş hacmi artışı.
+                  </p>
+                </div>
+                <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+                  <p class="text-3xl font-bold text-white">2 dk</p>
+                  <p class="mt-2 text-xs uppercase tracking-[0.3em] text-white/50">Ortalama güncelleme</p>
+                  <p class="mt-4 text-sm text-white/60">
+                    Menüde değişiklik yapmak için gereken süre. Karmaşık panel yok, tüm süreç mobilde.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="gradient-border">
+              <div class="rounded-[22px] bg-slate-950/60 p-10 backdrop-blur">
+                <div class="grid gap-6 text-sm">
+                  <div class="rounded-2xl bg-white/5 p-6">
+                    <p class="text-xs uppercase tracking-[0.3em] text-white/50">Adım 1</p>
+                    <p class="mt-3 text-lg font-semibold text-white">Menünüzü içe aktarın</p>
+                    <p class="mt-2 text-white/60">PDF, Excel veya POS sisteminizden tek tıkla aktarım.</p>
+                  </div>
+                  <div class="rounded-2xl bg-white/5 p-6">
+                    <p class="text-xs uppercase tracking-[0.3em] text-white/50">Adım 2</p>
+                    <p class="mt-3 text-lg font-semibold text-white">QR kodlarınızı oluşturun</p>
+                    <p class="mt-2 text-white/60">Her masa için benzersiz QR kodları ve tema seçenekleri.</p>
+                  </div>
+                  <div class="rounded-2xl bg-white/5 p-6">
+                    <p class="text-xs uppercase tracking-[0.3em] text-white/50">Adım 3</p>
+                    <p class="mt-3 text-lg font-semibold text-white">Analiz edin & optimize edin</p>
+                    <p class="mt-2 text-white/60">Satış raporları, popüler ürünler ve anlık geri bildirimler.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="fiyatlar" class="relative overflow-hidden py-24">
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950"></div>
+        <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div class="text-center">
+            <span class="inline-flex items-center rounded-full bg-sky-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-sky-300">
+              Fiyatlandırma
+            </span>
+            <h2 class="mt-6 text-3xl font-semibold text-white sm:text-4xl">Şeffaf ve esnek paketler</h2>
+            <p class="mt-4 text-lg text-white/70">
+              Her ölçekten restoran için uygun planlar. 14 gün boyunca ücretsiz deneyin, memnun
+              kalmazsanız tek tuşla iptal edin.
+            </p>
+          </div>
+          <div class="mt-16 grid gap-10 lg:grid-cols-3">
+            <article class="flex flex-col rounded-3xl border border-white/10 bg-white/5 p-8 text-left">
+              <h3 class="text-xl font-semibold text-white">Başlangıç</h3>
+              <p class="mt-2 text-sm text-white/60">Küçük işletmeler için ideal.</p>
+              <p class="mt-6 text-4xl font-bold text-white">₺349<span class="text-base font-normal text-white/50">/ay</span></p>
+              <ul class="mt-6 space-y-3 text-sm text-white/70">
+                <li>✔ 2 menü ve sınırsız ürün</li>
+                <li>✔ QR kod temaları</li>
+                <li>✔ Sipariş istatistikleri</li>
+              </ul>
+              <a
+                href="#demo"
+                class="mt-8 inline-flex items-center justify-center rounded-2xl border border-white/10 px-5 py-3 text-sm font-semibold text-white/80 transition hover:border-white/40 hover:text-white"
+              >Planı seç</a>
+            </article>
+            <article class="flex flex-col rounded-3xl border border-sky-500/40 bg-slate-950/80 p-8 text-left shadow-lg shadow-sky-500/20">
+              <div class="flex items-center justify-between">
+                <h3 class="text-xl font-semibold text-white">Profesyonel</h3>
+                <span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-sky-200">
+                  En Popüler
+                </span>
+              </div>
+              <p class="mt-2 text-sm text-white/60">Çok şubeli işletmeler için.</p>
+              <p class="mt-6 text-4xl font-bold text-white">₺649<span class="text-base font-normal text-white/50">/ay</span></p>
+              <ul class="mt-6 space-y-3 text-sm text-white/70">
+                <li>✔ Sınırsız menü & şube yönetimi</li>
+                <li>✔ Çok dil desteği & çeviri otomasyonu</li>
+                <li>✔ POS & muhasebe entegrasyonları</li>
+                <li>✔ Gelişmiş analitik panelleri</li>
+              </ul>
+              <a
+                href="#demo"
+                class="mt-8 inline-flex items-center justify-center rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-100"
+              >Planı seç</a>
+            </article>
+            <article class="flex flex-col rounded-3xl border border-white/10 bg-white/5 p-8 text-left">
+              <h3 class="text-xl font-semibold text-white">Kurumsal</h3>
+              <p class="mt-2 text-sm text-white/60">Yüksek hacimli markalar için özel çözümler.</p>
+              <p class="mt-6 text-4xl font-bold text-white">Teklif alın</p>
+              <ul class="mt-6 space-y-3 text-sm text-white/70">
+                <li>✔ SLA ve dedike hesap yöneticisi</li>
+                <li>✔ API erişimi ve özel entegrasyon</li>
+                <li>✔ Beyaz etiket ve çok lokasyon yönetimi</li>
+              </ul>
+              <a
+                href="#iletisim"
+                class="mt-8 inline-flex items-center justify-center rounded-2xl border border-white/10 px-5 py-3 text-sm font-semibold text-white/80 transition hover:border-white/40 hover:text-white"
+              >Satış ekibi ile görüş</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="relative py-24">
+        <div class="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"></div>
+        <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div class="grid gap-16 lg:grid-cols-2 lg:items-center">
+            <div>
+              <h2 class="text-3xl font-semibold text-white sm:text-4xl">Mutlu işletmeler, memnun misafirler</h2>
+              <p class="mt-4 text-base text-white/70">
+                obir.menu kullanıcılarının deneyimlerini dinleyin. İşletmelerin hız, kolaylık ve
+                müşteri memnuniyetinde elde ettikleri sonuçlar ortada.
+              </p>
+              <div class="mt-10 space-y-6">
+                <figure class="rounded-3xl border border-white/10 bg-white/5 p-6">
+                  <blockquote class="text-sm text-white/70">
+                    “Masalarımızda QR geçişiyle birlikte garson yoğunluğu %40 azaldı. obir.menu paneli
+                    sayesinde menü güncellemeleri dakikalar içinde bitiyor.”
+                  </blockquote>
+                  <figcaption class="mt-4 text-sm font-semibold text-white">Gizem Acar — Nox Rooftop</figcaption>
+                </figure>
+                <figure class="rounded-3xl border border-white/10 bg-white/5 p-6">
+                  <blockquote class="text-sm text-white/70">
+                    “Çok dilli menü desteği, yabancı misafirlerimizin deneyimini değiştirdi. Satış
+                    raporları sayesinde kampanyalarımızı doğru ürünlere yönlendiriyoruz.”
+                  </blockquote>
+                  <figcaption class="mt-4 text-sm font-semibold text-white">Sedat Kılıç — Kapı Kahvesi</figcaption>
+                </figure>
+              </div>
+            </div>
+            <div class="rounded-3xl border border-white/10 bg-white/5 p-8">
+              <h3 class="text-lg font-semibold text-white">KPI Panosu</h3>
+              <div class="mt-6 grid gap-6 sm:grid-cols-2">
+                <div class="rounded-2xl bg-slate-950/80 p-6">
+                  <p class="text-sm text-white/50">Bugünkü taramalar</p>
+                  <p class="mt-2 text-3xl font-semibold text-white">1.482</p>
+                </div>
+                <div class="rounded-2xl bg-slate-950/80 p-6">
+                  <p class="text-sm text-white/50">En çok satan</p>
+                  <p class="mt-2 text-3xl font-semibold text-white">Latte</p>
+                </div>
+                <div class="rounded-2xl bg-slate-950/80 p-6">
+                  <p class="text-sm text-white/50">Memnuniyet puanı</p>
+                  <p class="mt-2 text-3xl font-semibold text-emerald-300">4.8/5</p>
+                </div>
+                <div class="rounded-2xl bg-slate-950/80 p-6">
+                  <p class="text-sm text-white/50">Masa dönüşümü</p>
+                  <p class="mt-2 text-3xl font-semibold text-white">+%27</p>
+                </div>
+              </div>
+              <div class="mt-8 rounded-2xl border border-sky-500/30 bg-sky-500/10 p-6 text-sm text-sky-100">
+                <p class="font-semibold">Haftalık rapor hazır</p>
+                <p class="mt-2 text-white/80">
+                  PDF ve e-posta raporlarını yöneticilere otomatik iletin, performansınızı tek bakışta
+                  görün.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="sss" class="relative overflow-hidden py-24">
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950"></div>
+        <div class="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <div class="text-center">
+            <span class="inline-flex items-center rounded-full bg-sky-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-sky-300">
+              Sık Sorulan Sorular
+            </span>
+            <h2 class="mt-6 text-3xl font-semibold text-white sm:text-4xl">Aklınızdaki sorulara cevaplar</h2>
+            <p class="mt-4 text-lg text-white/70">
+              İhtiyacınız olan bilgiler burada. Daha fazlası için her zaman bizimle iletişime
+              geçebilirsiniz.
+            </p>
+          </div>
+          <div class="mt-12 space-y-6">
+            <details class="group rounded-2xl border border-white/10 bg-white/5 p-6">
+              <summary class="flex cursor-pointer items-center justify-between text-left text-base font-semibold text-white">
+                14 günlük deneme sürecinde kısıtlama var mı?
+                <span class="transition group-open:rotate-45">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.5v15m7.5-7.5h-15" />
+                  </svg>
+                </span>
+              </summary>
+              <p class="mt-4 text-sm text-white/70">
+                Deneme süresince tüm özelliklere erişebilirsiniz. Memnun kalmazsanız panelden tek
+                tıkla iptal edebilirsiniz.
+              </p>
+            </details>
+            <details class="group rounded-2xl border border-white/10 bg-white/5 p-6">
+              <summary class="flex cursor-pointer items-center justify-between text-left text-base font-semibold text-white">
+                POS sistemimle nasıl entegre olur?
+                <span class="transition group-open:rotate-45">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.5v15m7.5-7.5h-15" />
+                  </svg>
+                </span>
+              </summary>
+              <p class="mt-4 text-sm text-white/70">
+                obir.menu, yaygın POS sistemleriyle hazır entegrasyon sunar. Kullanmak istediğiniz
+                platform listede yoksa API anahtarınızla kolayca bağlayabilirsiniz.
+              </p>
+            </details>
+            <details class="group rounded-2xl border border-white/10 bg-white/5 p-6">
+              <summary class="flex cursor-pointer items-center justify-between text-left text-base font-semibold text-white">
+                QR kodları nasıl yönetiliyor?
+                <span class="transition group-open:rotate-45">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.5v15m7.5-7.5h-15" />
+                  </svg>
+                </span>
+              </summary>
+              <p class="mt-4 text-sm text-white/70">
+                Her masa için ayrı QR kodları tanımlayabilir, masalarınız değiştiğinde kodu yeniden
+                bastırmak zorunda kalmazsınız. Sistem otomatik yönlendirme yapar.
+              </p>
+            </details>
+            <details class="group rounded-2xl border border-white/10 bg-white/5 p-6">
+              <summary class="flex cursor-pointer items-center justify-between text-left text-base font-semibold text-white">
+                Teknik destek sağlıyor musunuz?
+                <span class="transition group-open:rotate-45">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.5v15m7.5-7.5h-15" />
+                  </svg>
+                </span>
+              </summary>
+              <p class="mt-4 text-sm text-white/70">
+                Evet. Hafta içi 09:00–23:00 canlı sohbet, 7/24 e-posta ve WhatsApp destek hattımızla
+                yanınızdayız.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section id="demo" class="relative py-24">
+        <div class="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950"></div>
+        <div class="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <div class="rounded-3xl border border-sky-500/30 bg-sky-500/10 p-12 text-center shadow-lg shadow-sky-500/20">
+            <h2 class="text-3xl font-semibold text-white sm:text-4xl">14 gün ücretsiz deneyin</h2>
+            <p class="mt-4 text-base text-white/70">
+              İşletmenize özel demo almak için formu doldurun. Ekibimiz 1 iş günü içinde sizinle
+              iletişime geçsin.
+            </p>
+            <form class="mt-8 grid gap-4 text-left sm:grid-cols-2">
+              <div class="sm:col-span-1">
+                <label for="name" class="text-xs font-semibold uppercase tracking-[0.3em] text-white/50"
+                  >Ad Soyad</label
+                >
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="Örn. Elif Yılmaz"
+                  class="mt-2 w-full rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-sky-300 focus:outline-none focus:ring-2 focus:ring-sky-400/40"
+                />
+              </div>
+              <div class="sm:col-span-1">
+                <label for="email" class="text-xs font-semibold uppercase tracking-[0.3em] text-white/50"
+                  >E-posta</label
+                >
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="ornek@obir.net"
+                  class="mt-2 w-full rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-sky-300 focus:outline-none focus:ring-2 focus:ring-sky-400/40"
+                />
+              </div>
+              <div class="sm:col-span-2">
+                <label for="business" class="text-xs font-semibold uppercase tracking-[0.3em] text-white/50"
+                  >İşletme Adı</label
+                >
+                <input
+                  id="business"
+                  name="business"
+                  type="text"
+                  placeholder="Obir Coffee House"
+                  class="mt-2 w-full rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-sky-300 focus:outline-none focus:ring-2 focus:ring-sky-400/40"
+                />
+              </div>
+              <div class="sm:col-span-2">
+                <label for="message" class="text-xs font-semibold uppercase tracking-[0.3em] text-white/50"
+                  >Notunuz</label
+                >
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="4"
+                  placeholder="Şubelerimiz hakkında kısa bilgi verin..."
+                  class="mt-2 w-full rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-sky-300 focus:outline-none focus:ring-2 focus:ring-sky-400/40"
+                ></textarea>
+              </div>
+              <div class="sm:col-span-2">
+                <button
+                  type="submit"
+                  class="w-full rounded-2xl bg-white px-6 py-3 text-base font-semibold text-slate-900 transition hover:bg-slate-100"
+                >
+                  Demo talep et
+                </button>
+              </div>
+            </form>
+            <p class="mt-6 text-xs text-white/60">
+              Form gönderimleri obir.net hesabınıza yönlendirilir. Deneme süresi sonunda otomatik
+              yenileme yapılmaz.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="iletisim" class="relative overflow-hidden py-24">
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950"></div>
+        <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div class="grid gap-12 lg:grid-cols-2">
+            <div class="space-y-6">
+              <h2 class="text-3xl font-semibold text-white sm:text-4xl">İletişim</h2>
+              <p class="text-base text-white/70">
+                obir.menu ekibi, restoran ve kafe zincirlerinin dijital dönüşümünde uzmanlaşmıştır.
+                Sorularınız, entegrasyon talepleriniz ve iş birlikleri için bize ulaşın.
+              </p>
+              <div class="grid gap-4 text-sm text-white/70">
+                <p><span class="font-semibold text-white">E-posta:</span> destek@obir.net</p>
+                <p><span class="font-semibold text-white">Telefon:</span> +90 (212) 555 00 00</p>
+                <p><span class="font-semibold text-white">Adres:</span> Levent, İstanbul</p>
+              </div>
+            </div>
+            <div class="rounded-3xl border border-white/10 bg-white/5 p-8">
+              <h3 class="text-lg font-semibold text-white">Haftalık canlı demo</h3>
+              <p class="mt-3 text-sm text-white/70">
+                Her çarşamba saat 11:00'de canlı demo düzenliyoruz. Katılmak için e-posta
+                listenize kaydolun.
+              </p>
+              <form class="mt-6 flex flex-col gap-3 sm:flex-row">
+                <input
+                  type="email"
+                  placeholder="ornek@obir.net"
+                  class="flex-1 rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-white/40 focus:border-sky-300 focus:outline-none focus:ring-2 focus:ring-sky-400/40"
+                />
+                <button
+                  type="submit"
+                  class="rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-100"
+                >
+                  Kaydol
+                </button>
+              </form>
+              <p class="mt-4 text-xs text-white/60">E-posta adresiniz üçüncü kişilerle paylaşılmaz.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="relative border-t border-white/5 bg-slate-950/90 py-10">
+      <div class="mx-auto flex max-w-6xl flex-col gap-6 px-4 text-sm text-white/60 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+        <div class="flex items-center gap-3 text-lg font-semibold text-white">
+          <span class="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-400 to-cyan-500 text-xl text-slate-900">ob</span>
+          <span>obir.menu</span>
+        </div>
+        <p>© <span id="year"></span> obir.net Dijital Menü Çözümleri. Tüm hakları saklıdır.</p>
+        <div class="flex gap-4 text-sm">
+          <a href="#" class="hover:text-white">Kullanım Şartları</a>
+          <a href="#" class="hover:text-white">KVKK</a>
+          <a href="#" class="hover:text-white">Çerez Politikası</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const menuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const yearSpan = document.getElementById('year');
+
+      if (menuButton && mobileMenu) {
+        menuButton.addEventListener('click', () => {
+          const isOpen = mobileMenu.classList.toggle('hidden');
+          menuButton.setAttribute('aria-expanded', (!isOpen).toString());
+        });
+      }
+
+      if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+      }
+    </script>
+  </body>
+</html>
